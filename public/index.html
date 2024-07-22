@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="home" class="screen">
+        <div class="option" onclick="handleSelection('vmware')">Taking advantage of VMware Cloud Foundation capabilities</div>
+        <div class="option" onclick="handleSelection('hypervisor')">Considering an alternate hypervisor</div>
+        <div class="option" onclick="handleSelection('hyperscaler')">Moving to a hyperscaler</div>
+    </div>
+
+    <div id="screen1" class="screen hidden">
+        <h2>VMware Cloud Foundation</h2>
+        <p>Content for VMware Cloud Foundation capabilities...</p>
+        <button onclick="navigateTo('contactForm')">Talk to an Expert</button>
+    </div>
+
+    <div id="screen2" class="screen hidden">
+        <div class="left-section">
+            <h3>Live results from Explore</h3>
+            <div id="graph"></div>
+        </div>
+        <div class="right-section">
+            <h2>Alternate Hypervisor</h2>
+            <p>Have you considered partnering with a cloud service provider to handle the day-to-day management of your environment to allow your team to adjust to the new hypervisor and focus on business objectives?</p>
+            <button onclick="navigateTo('contactForm')">Talk to an Expert</button>
+        </div>
+    </div>
+
+    <div id="screen3" class="screen hidden">
+        <h2>Hyperscaler</h2>
+        <p>Content for moving to a hyperscaler...</p>
+        <button onclick="navigateTo('contactForm')">Talk to an Expert</button>
+    </div>
+
+    <div id="contactForm" class="screen hidden">
+        <h2>Contact an Expert</h2>
+        <form id="expertForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
