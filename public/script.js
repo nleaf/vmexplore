@@ -25,12 +25,18 @@ async function fetchResults() {
 }
 
 function navigateTo(screenId) {
+    console.log(`Navigating to: ${screenId}`);
+    const screen = document.getElementById(screenId);
+    if (!screen) {
+        console.error(`No element found with ID: ${screenId}`);
+        return;
+    }
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.add('hidden');
         screen.classList.remove('visible');
     });
-    document.getElementById(screenId).classList.remove('hidden');
-    document.getElementById(screenId).classList.add('visible');
+    screen.classList.remove('hidden');
+    screen.classList.add('visible');
     updateResults();
 }
 

@@ -1,5 +1,5 @@
 {
-  "vmware": 0,
-  "hypervisor": 0,
-  "hyperscaler": 0
+  "vmware": 1,
+  "hypervisor": 2,
+  "hyperscaler": 1
 }
