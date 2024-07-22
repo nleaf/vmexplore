@@ -6,6 +6,7 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <style>
         .chart-container {
             position: relative;
@@ -72,9 +73,27 @@
                 plugins: {
                     legend: {
                         display: false // Hide the chart label
+                    },
+                    datalabels: {
+                        color: '#000',
+                        anchor: 'end',
+                        align: 'start',
+                        offset: -10,
+                        borderWidth: 2,
+                        borderColor: '#000',
+                        borderRadius: 25,
+                        backgroundColor: (context) => context.dataset.backgroundColor,
+                        font: {
+                            weight: 'bold',
+                            size: '16'
+                        },
+                        formatter: (value, context) => {
+                            return value;
+                        }
                     }
                 }
-            }
+            },
+            plugins: [ChartDataLabels]
         });
 
         // Update the admin dashboard results on page load and periodically
