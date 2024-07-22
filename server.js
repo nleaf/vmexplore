@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the "public" directory
 
 // Path to the JSON file where results will be stored
-const resultsFilePath = 'results.json';
+const resultsFilePath = path.join(__dirname, 'results.json');
 
 // Initialize the results file if it doesn't exist
 if (!fs.existsSync(resultsFilePath)) {
@@ -46,4 +46,8 @@ app.get('/api/results', (req, res) => {
     res.status(200).send(results);
 });
 
-// S
+// Serve index.html for the root route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
