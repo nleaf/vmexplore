@@ -47,11 +47,13 @@ async function handleSelection(selection) {
 
 async function updateResults() {
     const results = await fetchResults();
-    document.getElementById('graph').innerHTML = `
-        <div>Alternate Hypervisor: ${results.hypervisor}</div>
-        <div>VCF Bundle FTW!: ${results.vmware}</div>
-        <div>All in on Hyperscale: ${results.hyperscaler}</div>
-    `;
+    document.querySelectorAll('.graph').forEach(graph => {
+        graph.innerHTML = `
+            <div>VCF Bundle FTW!: ${results.vmware}</div>
+            <div>Alternate Hypervisor: ${results.hypervisor}</div>
+            <div>All in on Hyperscale: ${results.hyperscaler}</div>
+        `;
+    });
 }
 
 document.getElementById('expertForm').addEventListener('submit', function(event) {
