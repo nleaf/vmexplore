@@ -96,6 +96,7 @@ function createChart(ctx, selectedOption) {
                 chart.data.datasets.forEach(function(dataset, datasetIndex) {
                     const meta = chart.getDatasetMeta(datasetIndex);
                     if (!meta.hidden) {
+                        const total = dataset.data.reduce((acc, curr) => acc + curr, 0);
                         meta.data.forEach(function(element, index) {
                             const dataValue = dataset.data[index];
                             const dataLabel = chart.data.labels[index];
@@ -105,6 +106,8 @@ function createChart(ctx, selectedOption) {
                             const fontSizeLabel = isSelected ? 24 : 18;
                             const opacity = dataLabel === selectedOption ? 1 : 0.8;
 
+                            const percentage = Math.round((dataValue / total) * 100); // Calculate percentage and round to whole number
+                            
                             const model = element.tooltipPosition();
                             const x = model.x;
                             const y = model.y;
@@ -114,7 +117,7 @@ function createChart(ctx, selectedOption) {
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'middle';
                             ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-                            ctx.fillText(dataValue, x, y - (fontSizeLabel / 2));
+                            ctx.fillText(`${percentage}%`, x, y - (fontSizeLabel / 2));
 
                             ctx.font = Chart.helpers.fontString(fontSizeLabel, 'bold', Chart.defaults.font.family);
                             ctx.fillText(dataLabel, x, y + (fontSizeValue / 2));
