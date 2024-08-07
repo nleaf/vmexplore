@@ -4,59 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Application</title>
+    <link rel="stylesheet" href="https://expedient.com/css/tailwind.css?v=1.2.6">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://kit.fontawesome.com/f7e98d7748.js" crossorigin="anonymous" data-auto-a11y="true"></script>
 </head>
 <body>
     <div id="home" class="screen">
-        <div class="option" onclick="handleSelection('vmware')">Taking advantage of VMware Cloud Foundation capabilities</div>
-        <div class="option" onclick="handleSelection('hypervisor')">Considering an alternate hypervisor</div>
-        <div class="option" onclick="handleSelection('hyperscaler')">Moving to a hyperscaler</div>
+        <div class="option line-height-full font-bold text-4xl sm:text-5xl text-white pb-7 sm:pb-15" onclick="handleSelection('vmware')">VMware Cloud Foundation</div>
+        <div class="option line-height-full font-bold text-4xl sm:text-5xl text-white pb-7 sm:pb-15" onclick="handleSelection('hypervisor')">Alternate <br/>Hypervisor</div>
+        <div class="option line-height-full font-bold text-4xl sm:text-5xl text-white pb-7 sm:pb-15" onclick="handleSelection('hyperscaler')">Hyperscale <br/>Cloud</div>
     </div>
 
     <div id="screenvmware" class="screen hidden">
         <div class="left-section">
-            <h3>Live results from Explore</h3>
-            <div class="graph"></div>
+            <h3 class="title text-xl md:text-2xl pb-4 lg:pb-6 font-light line-height-great letter-space-one text-dgrey">Live results from Explore</h3>
+            <div class="chart-container">
+                <canvas id="chart-vmware"></canvas>
+            </div>
         </div>
         <div class="right-section">
-            <h2>VMware Cloud Foundation</h2>
-            <p>Content for VMware Cloud Foundation capabilities...</p>
-            <button onclick="navigateTo('contactForm')">Talk to an Expert</button>
+            <h2 class="mt-18 line-height-full font-extrabold text-3xl sm:text-4xl md:text-5xl pb-4 text-black">VMware Cloud</h2>
+            <p class="line-height-most m-0 tracking-mid-tight pb-6 sm:w-11/12 text-black font-light">Did you know a cloud service provider can offer reduced licensing costs and help your team get the most out of all the VCF bundle offers?</p>
+            <button onclick="navigateTo('contactForm')" class="cta-pill cta-pill-primary sm:cta-pill-primary w-5/12 font-medium text-lg">Talk to an Expert<span class="pl-2 relative" style="top: .13rem;"><i class="fa-sharp fa-solid fa-arrow-right" aria-hidden="true"></i></span></button>
         </div>
     </div>
 
     <div id="screenhypervisor" class="screen hidden">
         <div class="left-section">
-            <h3>Live results from Explore</h3>
-            <div class="graph"></div>
+            <h3 class="title text-xl md:text-2xl pb-4 lg:pb-6 font-light line-height-great letter-space-one text-dgrey">Live results from Explore</h3>
+            <div class="chart-container">
+                <canvas id="chart-hypervisor"></canvas>
+            </div>
         </div>
         <div class="right-section">
-            <h2>Alternate Hypervisor</h2>
-            <p>Have you considered partnering with a cloud service provider to handle the day-to-day management of your environment to allow your team to adjust to the new hypervisor and focus on business objectives?</p>
-            <button onclick="navigateTo('contactForm')">Talk to an Expert</button>
+            <h2 class="mt-18 line-height-full font-extrabold text-3xl sm:text-4xl md:text-5xl pb-4 text-black">Alternate Hypervisor</h2>
+            <p class="line-height-most m-0 tracking-mid-tight pb-6 sm:w-11/12 text-black font-light">Have you considered partnering with a cloud service provider to handle the day-to-day management of your environment to allow your team to adjust to the new hypervisor and focus on business objectives?</p>
+            <button onclick="navigateTo('contactForm')" class="cta-pill cta-pill-primary sm:cta-pill-primary w-5/12 font-medium text-lg">Talk to an Expert<span class="pl-2 relative" style="top: .13rem;"><i class="fa-sharp fa-solid fa-arrow-right" aria-hidden="true"></i></span></button>
         </div>
     </div>
 
     <div id="screenhyperscaler" class="screen hidden">
         <div class="left-section">
-            <h3>Live results from Explore</h3>
-            <div class="graph"></div>
+            <h3 class="title text-xl md:text-2xl pb-4 lg:pb-6 font-light line-height-great letter-space-one text-dgrey">Live results from Explore</h3>
+            <div class="chart-container">
+                <canvas id="chart-hyperscaler"></canvas>
+            </div>
         </div>
         <div class="right-section">
-            <h2>Hyperscaler</h2>
-            <p>Content for moving to a hyperscaler...</p>
-            <button onclick="navigateTo('contactForm')">Talk to an Expert</button>
+            <h2 class="mt-18 line-height-full font-extrabold text-3xl sm:text-4xl md:text-5xl pb-4 text-black">Hyperscale Cloud</h2>
+            <p class="line-height-most m-0 tracking-mid-tight pb-6 sm:w-11/12 text-black font-light">Have you considered partnering with a cloud service provider to handle the day-to-day management of your enviroment to allow your team to focus on business objectives?</p>
+            <button onclick="navigateTo('contactForm')" class="cta-pill cta-pill-primary sm:cta-pill-primary w-5/12 font-medium text-lg">Talk to an Expert<span class="pl-2 relative" style="top: .13rem;"><i class="fa-sharp fa-solid fa-arrow-right" aria-hidden="true"></i></span></button>
         </div>
     </div>
 
     <div id="contactForm" class="screen hidden">
-        <h2>Contact an Expert</h2>
+        <h2>Talk to an Expert</h2>
         <form id="expertForm">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
             <button type="submit">Submit</button>
         </form>
     </div>
+
+    <footer class="footer" id="footer">
+        <div class="contain">
+            <div class="p-5 pl-20">
+                <!-- logo -->
+                <svg class="h-10 w-auto block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 174.832 39.676">
+                    <title>Expedient</title>
+                    <g transform="translate(-24.307 -31.738)">
+                    <path d="M213.794,37.809l-6,6.071L205.826,41.9l4.042-4.094-4.042-4.094,1.965-1.977Zm-17.709,0a2.53,2.53,0,1,1,2.529,2.551A2.54,2.54,0,0,1,196.085,37.809Zm5.6,0a2.53,2.53,0,1,1,2.531,2.551A2.541,2.541,0,0,1,201.682,37.809Zm-18.244,0,6-6.071,1.963,1.977-4.039,4.094L191.4,41.9l-1.963,1.977Zm7.05,0a2.531,2.531,0,1,1,2.533,2.551A2.542,2.542,0,0,1,190.488,37.809Z" transform="translate(-99.16 0)" fill="#f20505"></path><path d="M383.681,87.042l3.144-14.6.663-3.953h7.037l-.54,2.847a8.293,8.293,0,0,1,6.948-3.252c6.886,0,5.772,5.172,5.22,7.723l-2.415,11.235H396.7L398.994,76.4c.277-1.292.843-3.916-2.037-3.916-3.144,0-3.845,3.252-3.986,3.916L390.68,87.042Z" transform="translate(-223.939 -22.648)" fill="#FFFFFF"></path><path d="M457.563,60.189h4.453l-.954,4.434h-4.53l-1.381,6.43c-.457,2.292-.679,3.326,2.011,3.326a11.827,11.827,0,0,0,1.785-.108l-.938,4.358a27.239,27.239,0,0,1-4.634.334c-5.616,0-6.341-1.849-5.57-5.434l1.918-8.906h-3.554l.955-4.434h3.668l.618-2.882,7.346-2.662Z" transform="translate(-262.876 -14.274)" fill="#FFFFFF"></path><path d="M31.468,74.966h6.776c.153-1.07.532-3.879-2.534-3.879S31.734,74.077,31.468,74.966Zm12.9,3.771H30.9c-.211,1-.967,4.508,2.622,4.508a3.735,3.735,0,0,0,3.8-2.7h6.547c-1.526,4.658-6.329,6.466-11.2,6.466-6.545,0-9.364-3.25-8.043-9.385C25.962,71.42,29.894,67.39,36.817,67.39c5.238,0,7.217,2.109,7.923,4.731C45.221,73.71,45.063,75.485,44.365,78.737Z" transform="translate(0 -22.216)" fill="#FFFFFF"></path><path d="M77.95,78.028l-3.666-8.87h8.193l1.173,5.69,3.728-5.69h7.185l-7.671,8.87,4.278,9.684H82.863l-1.479-6.875L76.8,87.711H69.54Z" transform="translate(-28.186 -23.318)" fill="#FFFFFF"></path><path d="M134.646,77.566c-.32,1.478-1.012,5.578,2.2,5.578,2.958,0,4.24-3.178,4.838-5.949.383-1.775.771-5.321-2.223-5.321C135.871,71.874,134.878,76.494,134.646,77.566Zm-5.055-9.2h6.884l-.487,2.624a8.861,8.861,0,0,1,6.839-3.1c3.144,0,7.7,1.777,6.061,9.387-1.55,7.207-6.271,10.014-10.533,10.014-3.331,0-4.472-1.662-5.094-2.588l-1.988,9.241h-7.037l4.854-22.543C129.454,69.36,129.463,69.141,129.591,68.363Z" transform="translate(-62.27 -22.523)" fill="#FFFFFF"></path><path d="M198.445,74.966h6.775c.156-1.07.537-3.879-2.531-3.879S198.714,74.077,198.445,74.966Zm12.584,3.771H197.561c-.214,1-.969,4.508,2.623,4.508a3.728,3.728,0,0,0,3.8-2.7h6.55c-1.524,4.658-6.33,6.466-11.194,6.466-6.55,0-9.365-3.25-8.045-9.385,1.335-6.208,5.273-10.239,12.194-10.239,5.234,0,7.215,2.109,7.925,4.731C211.888,73.71,211.73,75.485,211.029,78.737Z" transform="translate(-103.855 -22.216)" fill="#FFFFFF"></path><path d="M256.919,70.61c2.542,0,4.1-2.515,4.776-5.69.672-3.1.185-5.544-2.287-5.544-3.142,0-4.4,3.915-4.771,5.653C254.255,66.806,253.809,70.61,256.919,70.61Zm8.433-23.022h7.035l-4.75,22.061c-.334,1.55-.586,3.067-.8,4.621h-6.66l.434-2.738a8.691,8.691,0,0,1-7.042,3.18c-6.475,0-7.193-5.172-6.216-9.718.852-3.955,2.336-5.8,3.9-7.171a9.936,9.936,0,0,1,6.713-2.511,5.471,5.471,0,0,1,5.169,2.587Z" transform="translate(-138.763 -9.877)" fill="#FFFFFF"></path><path d="M316.625,52.733l1.064-4.949h7.184l-1.066,4.949Z" transform="translate(-182.154 -9.999)" fill="#FFFFFF"></path><path d="M304.456,87.711l3.992-18.553h7.033l-3.991,18.553Z" transform="translate(-174.571 -23.318)" fill="#FFFFFF"></path><path d="M338.8,74.966h6.772c.156-1.07.536-3.879-2.529-3.879S339.069,74.077,338.8,74.966Zm12.586,3.771H337.918c-.216,1-.972,4.508,2.62,4.508a3.734,3.734,0,0,0,3.8-2.7h6.548c-1.526,4.658-6.334,6.466-11.2,6.466-6.545,0-9.362-3.25-8.043-9.385,1.333-6.208,5.27-10.239,12.193-10.239,5.238,0,7.215,2.109,7.925,4.731C352.243,73.71,352.086,75.485,351.389,78.737Z" transform="translate(-191.316 -22.216)" fill="#FFFFFF"></path></g>
+                </svg>
+            </div>
+            <div class="p-5">RETURN</div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
