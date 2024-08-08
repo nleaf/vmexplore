@@ -101,32 +101,82 @@ function createChart(ctx, selectedOption) {
                             const dataValue = dataset.data[index];
                             const dataLabel = chart.data.labels[index];
                             const isSelected = dataLabel === selectedOption;
-
+        
                             const fontSizeValue = isSelected ? 80 : 32;
                             const fontSizeLabel = isSelected ? 24 : 18;
                             const opacity = dataLabel === selectedOption ? 1 : 0.8;
-
+        
                             const percentage = Math.round((dataValue / total) * 100); // Calculate percentage and round to whole number
                             
                             const model = element.tooltipPosition();
                             const x = model.x;
                             const y = model.y;
-
+        
+                            const lineHeight = isSelected ? 30 : 10; // Adjust line height for selected value
+        
                             ctx.save();
+                            // Draw percentage text
                             ctx.font = Chart.helpers.fontString(fontSizeValue, 'bold', Chart.defaults.font.family);
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'middle';
                             ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-                            ctx.fillText(`${percentage}%`, x, y - (fontSizeLabel / 2));
-
+                            ctx.fillText(`${percentage}%`, x, y - (fontSizeLabel / 2) - lineHeight); // Draw percentage higher
+        
+                            // Draw label text
+                            const label = dataLabel.split(' '); // Split label into words
                             ctx.font = Chart.helpers.fontString(fontSizeLabel, 'bold', Chart.defaults.font.family);
-                            ctx.fillText(dataLabel, x, y + (fontSizeValue / 2));
+                            ctx.fillText(label[0], x, y + (fontSizeLabel / 2)); // Draw first part of label
+                            ctx.fillText(label.slice(1).join(' '), x, y + (fontSizeLabel * 1.5)); // Draw second part of label below
+        
                             ctx.restore();
                         });
                     }
                 });
             }
         }]
+        
+        
+        // plugins: [{
+        //     id: 'datalabels_labels',
+        //     afterDatasetsDraw: function(chart) {
+        //         const ctx = chart.ctx;
+        //         chart.data.datasets.forEach(function(dataset, datasetIndex) {
+        //             const meta = chart.getDatasetMeta(datasetIndex);
+        //             if (!meta.hidden) {
+        //                 const total = dataset.data.reduce((acc, curr) => acc + curr, 0);
+        //                 meta.data.forEach(function(element, index) {
+        //                     const dataValue = dataset.data[index];
+        //                     const dataLabel = chart.data.labels[index];
+        //                     const isSelected = dataLabel === selectedOption;
+
+        //                     const fontSizeValue = isSelected ? 40 : 32;
+        //                     const fontSizeLabel = isSelected ? 20 : 16;
+        //                     const opacity = dataLabel === selectedOption ? 1 : 0.5;
+
+        //                     const percentage = Math.round((dataValue / total) * 100); // Calculate percentage and round to whole number
+
+        //                     const model = element.tooltipPosition();
+        //                     const x = model.x;
+        //                     const y = model.y;
+
+        //                     ctx.save();
+        //                     ctx.font = Chart.helpers.fontString(fontSizeValue, 'bold', Chart.defaults.font.family);
+        //                     ctx.textAlign = 'center';
+        //                     ctx.textBaseline = 'middle';
+        //                     ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+        //                     ctx.fillText(`${percentage}%`, x, y - (fontSizeLabel + 10)); // Move percentage higher
+                            
+        //                     const label = dataLabel.split(' '); // Split label into words
+        //                     ctx.font = Chart.helpers.fontString(fontSizeLabel, 'normal', Chart.defaults.font.family);
+        //                     ctx.fillText(label[0], x, y); // Draw first part of label
+        //                     ctx.fillText(label.slice(1).join(' '), x, y + (fontSizeLabel + 10)); // Draw second part of label below
+                            
+        //                     ctx.restore();
+        //                 });
+        //             }
+        //         });
+        //     }
+        // }]
     });
 }
 
