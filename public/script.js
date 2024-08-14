@@ -33,7 +33,7 @@ function createChart(ctx, selectedOption) {
     return new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['Alternate Hypervisor', 'VMware Cloud Foundation', 'Hyperscale Cloud'],
+            labels: ['Alternate Hypervisor', 'VMware Cloud', 'Hyperscale Cloud'],
             datasets: [{
                 data: [0, 0, 0],
                 backgroundColor: [
@@ -221,7 +221,7 @@ async function updateChartsAndRecreate(screenId, selectedOption) {
 async function handleSelection(selection) {
     await recordSelection(selection);
     const selectedLabelMap = {
-        vmware: 'VMware Cloud Foundation',
+        vmware: 'VMware Cloud',
         hypervisor: 'Alternate Hypervisor',
         hyperscaler: 'Hyperscale Cloud'
     };
