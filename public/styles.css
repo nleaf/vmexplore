@@ -161,10 +161,12 @@ canvas {
     .left-section, .right-section {
         width: 100%;
         padding: 4vw;
+        justify-content: start;
     }
 
     .left-section {
         text-align: center;
+        height: 50vh;
     }
 
     #graph {
