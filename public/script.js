@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const isLivePage = window.location.pathname.includes('live.html');
+    
+    if (isLivePage) {
+        navigateTo('screenvmware');
+    }
+});
+
 function toggleFooterVisibility(show) {
     const footer = document.getElementById('footer');
     if (show) {
@@ -261,3 +269,20 @@ document.getElementById('expertForm').addEventListener('submit', function(event)
 document.getElementById('footer').addEventListener('click', function() {
     navigateTo('home');
 });
+
+async function initializeChartForScreen(screenId) {
+    const data = await fetchResults();
+    let canvasId = '';
+
+    if (screenId === 'screenvmware') {
+        canvasId = 'chart-vmware';
+    }
+
+    if (canvasId) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        const chart = createChart(ctx, data);
+        setInterval(() => {
+            updateCharts([chart]);
+        }, 5000);
+    }
+}
