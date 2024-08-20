@@ -65,7 +65,7 @@ body {
     flex-direction: column;
     align-items: left;
     justify-content: center;
-    padding: 5vw; /* Responsive padding */
+    padding: 2vw; /* Responsive padding */
     height: 100%;
 }
 
