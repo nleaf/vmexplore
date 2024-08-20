@@ -58,6 +58,7 @@ function createChart(ctx, selectedOption) {
             }]
         },
         options: {
+            events: [],
             responsive: true,
             maintainAspectRatio: false,
             animation: {
