@@ -230,6 +230,13 @@ if(document.getElementById('home')){
 }
 toggleFooterVisibility(false); // Hide footer initially
 
+let selectedHypervisor = ''; // Global variable to store the selected hypervisor
+
+function selectHypervisor(hypervisor) {
+    selectedHypervisor = hypervisor;
+    navigateTo('contactForm'); // Proceed to the contact form
+}
+
 document.getElementById('expertForm').addEventListener('submit', function(event) {
     event.preventDefault();
     function sendJSONPRequest() {
@@ -247,7 +254,8 @@ document.getElementById('expertForm').addEventListener('submit', function(event)
         // Define the parameters you want to send, including the email
         const params = {
             email: emailInput, // Add the email input value here
-            selection: userSelection // Add the user's selection here
+            selection: userSelection, // Add the user's selection here
+            hyperVisor: selectedHypervisor //Selected hypervisor 
         };
 
         // Serialize the parameters to a query string
