@@ -163,6 +163,12 @@ function navigateTo(screenId, selectedOption) {
     });
     screen.classList.remove('hidden');
     screen.classList.add('visible');
+
+    if (screenId === 'contactForm') {
+        // Clear the email input field
+        document.getElementById('email').value = '';
+    }
+
     toggleFooterVisibility(screenId !== 'home'); // Show footer on all screens except home
     updateChartsAndRecreate(screenId, selectedOption); // Update and recreate chart when navigating
 }
