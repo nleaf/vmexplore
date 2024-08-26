@@ -1,3 +1,5 @@
+let chartInstances = {}; // Store chart instances globally
+
 document.addEventListener('DOMContentLoaded', () => {
     const isLivePage = window.location.pathname.includes('live.html');
     
@@ -41,7 +43,7 @@ function createChart(ctx, selectedOption) {
     return new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['Alternate Hypervisor', 'VMware Cloud', 'Hyperscale Cloud'],
+            labels: ['Alternate Hypervisors', 'VMware Cloud', 'Hyperscale Cloud'],
             datasets: [{
                 data: [0, 0, 0],
                 backgroundColor: [
@@ -73,6 +75,7 @@ function createChart(ctx, selectedOption) {
                     color: '#fff',
                     font: context => {
                         const label = context.chart.data.labels[context.dataIndex];
+                        console.log(label, selectedOption); // Debugging line
                         const isSelected = label === selectedOption;
                         return {
                             weight: 'bold',
@@ -143,49 +146,6 @@ function createChart(ctx, selectedOption) {
                 });
             }
         }]
-        
-        
-        // plugins: [{
-        //     id: 'datalabels_labels',
-        //     afterDatasetsDraw: function(chart) {
-        //         const ctx = chart.ctx;
-        //         chart.data.datasets.forEach(function(dataset, datasetIndex) {
-        //             const meta = chart.getDatasetMeta(datasetIndex);
-        //             if (!meta.hidden) {
-        //                 const total = dataset.data.reduce((acc, curr) => acc + curr, 0);
-        //                 meta.data.forEach(function(element, index) {
-        //                     const dataValue = dataset.data[index];
-        //                     const dataLabel = chart.data.labels[index];
-        //                     const isSelected = dataLabel === selectedOption;
-
-        //                     const fontSizeValue = isSelected ? 40 : 32;
-        //                     const fontSizeLabel = isSelected ? 20 : 16;
-        //                     const opacity = dataLabel === selectedOption ? 1 : 0.5;
-
-        //                     const percentage = Math.round((dataValue / total) * 100); // Calculate percentage and round to whole number
-
-        //                     const model = element.tooltipPosition();
-        //                     const x = model.x;
-        //                     const y = model.y;
-
-        //                     ctx.save();
-        //                     ctx.font = Chart.helpers.fontString(fontSizeValue, 'bold', Chart.defaults.font.family);
-        //                     ctx.textAlign = 'center';
-        //                     ctx.textBaseline = 'middle';
-        //                     ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-        //                     ctx.fillText(`${percentage}%`, x, y - (fontSizeLabel + 10)); // Move percentage higher
-                            
-        //                     const label = dataLabel.split(' '); // Split label into words
-        //                     ctx.font = Chart.helpers.fontString(fontSizeLabel, 'normal', Chart.defaults.font.family);
-        //                     ctx.fillText(label[0], x, y); // Draw first part of label
-        //                     ctx.fillText(label.slice(1).join(' '), x, y + (fontSizeLabel + 10)); // Draw second part of label below
-                            
-        //                     ctx.restore();
-        //                 });
-        //             }
-        //         });
-        //     }
-        // }]
     });
 }
 
@@ -221,19 +181,29 @@ async function updateChartsAndRecreate(screenId, selectedOption) {
     if (canvasId) {
         const canvas = document.getElementById(canvasId);
         const ctx = canvas.getContext('2d');
-        const newChart = createChart(ctx, selectedOption);
-        newChart.data.datasets[0].data = data;
-        newChart.update();
+
+        // Destroy existing chart instance if it exists
+        if (chartInstances[canvasId]) {
+            chartInstances[canvasId].destroy();
+        }
+
+        // Create a new chart instance and store it
+        chartInstances[canvasId] = createChart(ctx, selectedOption);
+        chartInstances[canvasId].data.datasets[0].data = data;
+        chartInstances[canvasId].update();
     }
 }
+
+let userSelection = ''; // Variable to store the user's selection
 
 async function handleSelection(selection) {
     await recordSelection(selection);
     const selectedLabelMap = {
         vmware: 'VMware Cloud',
-        hypervisor: 'Alternate Hypervisor',
+        hypervisor: 'Alternate Hypervisors',
         hyperscaler: 'Hyperscale Cloud'
     };
+    userSelection = selectedLabelMap[selection]; // Store the user's selection
     navigateTo(`screen${selection}`, selectedLabelMap[selection]);
 }
 
@@ -255,20 +225,76 @@ async function recordSelection(selection) {
 }
 
 // Initialize home screen visibility and load selections
-document.getElementById('home').classList.add('visible');
+if(document.getElementById('home')){
+    document.getElementById('home').classList.add('visible');
+}
 toggleFooterVisibility(false); // Hide footer initially
 
 document.getElementById('expertForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    function sendJSONPRequest() {
+        // Define the endpoint
+        const url = 'https://go.expedient.com/l/12902/2024-08-23/k5f215';
+    
+        // Get the value of the input field with the ID of 'email'
+        const emailInput = document.getElementById('email').value;
+
+        //Check for null in userSelection
+        if(userSelection == ''){ 
+            userSelection = 'cloud workloads'
+        }
+
+        // Define the parameters you want to send, including the email
+        const params = {
+            email: emailInput, // Add the email input value here
+            selection: userSelection // Add the user's selection here
+        };
+
+        // Serialize the parameters to a query string
+        const queryString = new URLSearchParams(params).toString();
+
+        // Create a unique callback function name
+        const callbackName = 'jsonpCallback_' + Math.random().toString(36).substring(2, 15);
+
+        // Attach the callback to the window object
+        window[callbackName] = function(response) {
+            // Handle the JSONP response here
+            console.log('JSONP Response:', response);
+
+            // Clean up by removing the script tag and callback
+            delete window[callbackName];
+            document.body.removeChild(script);
+        };
+
+        // Create the script element
+        const script = document.createElement('script');
+
+        // Set the src attribute to the URL with the callback parameter
+        script.src = `${url}?${queryString}&callback=${callbackName}`;
+
+        // Append the script to the document to initiate the request
+        document.body.appendChild(script);
+    }
+    
+    // Call the function to send the request
+    sendJSONPRequest();
+
     const email = document.getElementById('email').value;
-    alert(`Form submitted with email: ${email}`);
+    alert(`Form submitted with email ${email}, a representative from Expedient we'll be reaching out.`);
     // Here you can handle the form submission, e.g., sending data to the server
-    navigateTo('home'); // Navigate back to home after submission
+    const isLivePage = window.location.pathname.includes('live.html');
+    
+    if (isLivePage) {
+        navigateTo('screenvmware');
+    }else{
+        navigateTo('home'); // Navigate back to home after submission
+    }
 });
 
 // Add event listener to footer to navigate to home
 document.getElementById('footer').addEventListener('click', function() {
     navigateTo('home');
+    updateChartsAndRecreate('home', ''); // Fetch and update charts when navigating to home
 });
 
 async function initializeChartForScreen(screenId) {
