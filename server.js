@@ -6,6 +6,14 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middleware to redirect HTTP to HTTPS
+app.use((req, res, next) => {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    }
+    next();
+});
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the "public" directory
 
