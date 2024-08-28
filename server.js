@@ -44,7 +44,7 @@ function saveResults(results) {
 }
 
 // Endpoint to record a selection
-app.post('/api/record', (req, res) => {
+app.post('https://vmexplore2024-514da3523c0f.herokuapp.com/api/record', (req, res) => {
     const { selection } = req.body;
     if (['vmware', 'hypervisor', 'hyperscaler'].includes(selection)) {
         const results = getResults();
@@ -57,7 +57,7 @@ app.post('/api/record', (req, res) => {
 });
 
 // Endpoint to get the current results
-app.get('/api/results', (req, res) => {
+app.get('https://vmexplore2024-514da3523c0f.herokuapp.com/api/results', (req, res) => {
     const results = getResults();
     res.status(200).send(results);
 });
