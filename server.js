@@ -9,6 +9,22 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the "public" directory
 
+// Middleware to redirect HTTP to HTTPS only for www.vmoods.com
+app.use((req, res, next) => {
+    if (req.hostname === 'www.vmoods.com' && req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect(`https://${req.get('Host')}${req.url}`);
+    }
+    next();
+});
+
+// Middleware to redirect www.vmoods.com to /live.html
+app.use((req, res, next) => {
+    if (req.hostname === 'www.vmoods.com') {
+        return res.redirect('/live.html');
+    }
+    next();
+});
+
 // Path to the JSON file where results will be stored
 const resultsFilePath = path.join(__dirname, 'results.json');
 
