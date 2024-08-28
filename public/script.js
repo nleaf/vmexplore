@@ -1,7 +1,7 @@
 let chartInstances = {}; // Store chart instances globally
 
 document.addEventListener('DOMContentLoaded', () => {
-    const isLivePage = window.location.pathname.includes('live.html');
+    const isLivePage = window.location.pathname.includes('vmoods');
     
     if (isLivePage) {
         navigateTo('screenvmware');
