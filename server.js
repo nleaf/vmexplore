@@ -22,6 +22,14 @@ function getResults() {
     return JSON.parse(fs.readFileSync(resultsFilePath));
 }
 
+// Redirect all traffic to /live.html
+app.use((req, res, next) => {
+    if (req.hostname === 'vmoods.com' || req.hostname === 'www.vmoods.com') {
+        return res.redirect('https://www.vmoods.com/live.html');
+    }
+    next();
+});
+
 // Write results to the file
 function saveResults(results) {
     fs.writeFileSync(resultsFilePath, JSON.stringify(results, null, 2));
