@@ -17,12 +17,17 @@ app.use((req, res, next) => {
     next();
 });
 
-// Middleware to redirect www.vmoods.com to /live.html
-app.use((req, res, next) => {
+// Serve API endpoints without redirecting them
+app.use('/api', (req, res, next) => {
+    next(); // Skip redirection for API routes
+});
+
+// Redirect root to /live.html but not other routes like /api/*
+app.get('/', (req, res) => {
     if (req.hostname === 'www.vmoods.com') {
         return res.redirect('/live.html');
     }
-    next();
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Path to the JSON file where results will be stored
@@ -59,12 +64,7 @@ app.post('/api/record', (req, res) => {
 // Endpoint to get the current results
 app.get('/api/results', (req, res) => {
     const results = getResults();
-    res.status(200).send(results);
-});
-
-// Serve index.html for the root route
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.status(200).json(results); // Make sure to return JSON
 });
 
 // Serve admin.html for the admin route
