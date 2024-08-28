@@ -18,7 +18,7 @@ function toggleFooterVisibility(show) {
 }
 async function fetchResults() {
     try {
-        const response = await fetch('https://vmexplore2024-514da3523c0f.herokuapp.com/api/results');
+        const response = await fetch('/api/results');
         const data = await response.json();
         return data;
     } catch (error) {
@@ -216,7 +216,7 @@ async function handleSelection(selection) {
 
 async function recordSelection(selection) {
     try {
-        const response = await fetch('https://vmexplore2024-514da3523c0f.herokuapp.com/api/record', {
+        const response = await fetch('/api/record', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
