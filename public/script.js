@@ -1,9 +1,12 @@
 let chartInstances = {}; // Store chart instances globally
 
 document.addEventListener('DOMContentLoaded', () => {
-    const isLivePage = window.location.pathname.includes('vmoods');
+    // Check if the domain is 'vmoods.com' or 'www.vmoods.com', or if the pathname includes 'live.html'
+    const isVmoodsDomain = window.location.hostname === 'vmoods.com' || window.location.hostname === 'www.vmoods.com';
+    const isLivePage = window.location.pathname.includes('live.html');
     
-    if (isLivePage) {
+    if (isVmoodsDomain || isLivePage) {
+        // Navigate to the 'screenvmware' screen if any of the conditions are met
         navigateTo('screenvmware');
     }
 });
