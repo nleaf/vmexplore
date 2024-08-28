@@ -6,33 +6,6 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware to redirect HTTP to HTTPS if needed
-app.use((req, res, next) => {
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-        return res.redirect(['https://', req.get('Host'), req.url].join(''));
-    }
-    next();
-});
-
-// Redirect all traffic to /live.html
-app.use((req, res, next) => {
-    if (req.hostname === 'vmoods.com' || req.hostname === 'www.vmoods.com') {
-        return res.redirect('http://www.vmoods.com/live.html');
-    }
-    next();
-});
-
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the "public" directory
-
-app.get('/live.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'live.html'));
-});
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
-
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the "public" directory
 
