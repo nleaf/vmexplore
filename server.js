@@ -22,7 +22,12 @@ app.use('/api', (req, res, next) => {
     next(); // Skip redirection for API routes
 });
 
-// Redirect root to /live.html but not other routes like /api/*
+// Serve live.html directly for the /live.html route
+app.get('/live.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'live.html'));
+});
+
+// Redirect root of www.vmoods.com to /live.html
 app.get('/', (req, res) => {
     if (req.hostname === 'www.vmoods.com') {
         return res.redirect('/live.html');
