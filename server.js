@@ -6,6 +6,10 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use((req, res, next) => {
+    console.log(`Received request: ${req.method} ${req.url} from ${req.hostname}`);
+    next();
+});
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the "public" directory
 
@@ -22,17 +26,17 @@ app.use('/api', (req, res, next) => {
     next(); // Skip redirection for API routes
 });
 
-// Serve live.html directly for the /live.html route
-app.get('/live.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'live.html'));
-});
-
 // Redirect root of www.vmoods.com to /live.html
 app.get('/', (req, res) => {
     if (req.hostname === 'www.vmoods.com') {
         return res.redirect('/live.html');
     }
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Serve live.html directly for the /live.html route
+app.get('/live.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'live.html'));
 });
 
 // Path to the JSON file where results will be stored
