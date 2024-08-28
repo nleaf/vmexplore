@@ -2,10 +2,14 @@ let chartInstances = {}; // Store chart instances globally
 
 document.addEventListener('DOMContentLoaded', () => {
     const isLivePage = window.location.pathname.includes('live.html');
-    
-    // Check if the domain is 'www.vmoods.com'
-    if (window.location.hostname === 'www.vmoods.com') {
-        // Redirect to the 'live.html' page
+
+    // Check if the domain is 'vmoods.com' or 'www.vmoods.com'
+    const isVmoodsDomain = window.location.hostname === 'vmoods.com' || window.location.hostname === 'www.vmoods.com';
+    // Check if the pathname is exactly '/'
+    const isRootPath = window.location.pathname === '/';
+
+    // If both conditions are met, redirect to '/live.html'
+    if (isVmoodsDomain && isRootPath) {
         window.location.href = '/live.html';
     }
 
