@@ -2,9 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors');  // Import the CORS middleware
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Enable CORS for specific origin
+app.use(cors({
+    origin: 'https://www.vmoods.com', // Replace with your actual domain
+    methods: 'GET,POST' // Specify which HTTP methods are allowed
+}));
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the "public" directory
