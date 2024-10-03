@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // If both conditions are met, redirect to '/live.html'
     // if (isVmoodsDomain && isRootPath) {
-    //     window.location.href = '/live.html';
+    //     window.location.href = '/';
     // }
 
     if (isLivePage) {
