@@ -1,7 +1,7 @@
 let chartInstances = {}; // Store chart instances globally
 
 document.addEventListener('DOMContentLoaded', () => {
-    //const isLivePage = window.location.pathname.includes('live.html');
+    const isLivePage = window.location.pathname.includes('live.html');
 
     // Check if the domain is 'vmoods.com' or 'www.vmoods.com'
     const isVmoodsDomain = window.location.hostname === 'vmoods.com' || window.location.hostname === 'www.vmoods.com';
@@ -10,12 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // If both conditions are met, redirect to '/live.html'
     // if (isVmoodsDomain && isRootPath) {
-    //     window.location.href = '/';
+    //     window.location.href = '/live.html';
     // }
 
-    // if (isLivePage) {
-    //     navigateTo('screenvmware');
-    // }
+    if (isLivePage) {
+        navigateTo('home');
+    }
 });
 
 function toggleFooterVisibility(show) {
