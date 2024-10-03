@@ -304,15 +304,15 @@ document.getElementById('expertForm').addEventListener('submit', function(event)
     sendJSONPRequest();
 
     const email = document.getElementById('email').value;
-    alert(`Form submitted with email ${email}, a representative from Expedient we'll be reaching out.`);
+    alert(`Form submitted with email ${email}, a representative from Expedient will be reaching out soon.`);
     // Here you can handle the form submission, e.g., sending data to the server
-    const isLivePage = window.location.pathname.includes('live.html');
+    // const isLivePage = window.location.pathname.includes('live.html');
     
-    if (isLivePage) {
-        navigateTo('screenvmware');
-    }else{
+    // if (isLivePage) {
+    //     navigateTo('screenvmware');
+    // }else{
         navigateTo('home'); // Navigate back to home after submission
-    }
+    //}
 });
 
 // Add event listener to footer to navigate to home
