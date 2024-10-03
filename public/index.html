@@ -14,10 +14,11 @@
     <script src="https://kit.fontawesome.com/f7e98d7748.js" crossorigin="anonymous" data-auto-a11y="true"></script>
 </head>
 <body>
+    <div class="p-20 screen visible w-2/3"><h2 class="md:mt-18 line-height-full font-extrabold text-3xl sm:text-4xl md:text-5xl pb-4 text-black">Where Will Your VMware Workloads Live in the Future? </h2></div>
     <div id="home" class="screen">
-        <div class="option line-height-full font-bold text-4xl sm:text-5xl md:text-3xl lg:text-5xl text-white pb-7 sm:pb-15" onclick="handleSelection('vmware')">VMware <br/>Cloud <span class="text-xl md:text-3xl xl:text-5xl lg:mt-12">Vote Here -></span></i></div>
-        <div class="option line-height-full font-bold text-4xl sm:text-5xl md:text-3xl lg:text-5xl text-white pb-7 sm:pb-15" onclick="handleSelection('hypervisor')">Alternate <br/>Hypervisor <span class="text-xl md:text-3xl xl:text-5xl lg:mt-12">Vote Here -></span></div>
-        <div class="option line-height-full font-bold text-4xl sm:text-5xl md:text-3xl lg:text-5xl text-white pb-7 sm:pb-15" onclick="handleSelection('hyperscaler')">Hyperscale <br/>Cloud <span class="text-xl md:text-3xl xl:text-5xl lg:mt-12">Vote Here -></span></div>
+        <div class="option line-height-full font-bold text-4xl sm:text-4xl md:text-4xl lg:text-4xl text-white pb-7 sm:pb-15" onclick="handleSelection('vmware')">VMware <br/>Cloud</i></div>
+        <div class="option line-height-full font-bold text-4xl sm:text-4xl md:text-4xl lg:text-4xl text-white pb-7 sm:pb-15" onclick="handleSelection('hypervisor')">Alternate <br/>Hypervisor</div>
+        <div class="option line-height-full font-bold text-4xl sm:text-4xl md:text-4xl lg:text-4xl text-white pb-7 sm:pb-15" onclick="handleSelection('hyperscaler')">Hyperscale <br/>Cloud</div>
     </div>
 
     <div id="screenvmware" class="screen hidden h-full w-full">
@@ -36,7 +37,7 @@
 
     <div id="screenhypervisor" class="screen hidden h-full w-full">
         <div class="left-section">
-            <h3 class="title text-xl md:text-2xl pb-4 lg:pb-6 font-medium line-height-great letter-space-one text-dgrey">Live results from Explore</h3>
+            <h3 class="title text-xl md:text-2xl pb-4 lg:pb-6 font-medium line-height-great letter-space-one text-dgrey">Live Results</h3>
             <div class="chart-container">
                 <canvas id="chart-hypervisor"></canvas>
             </div>
@@ -101,7 +102,7 @@
                     <path d="M104.976 17.4858H110.747C110.88 16.5955 111.204 14.2583 108.592 14.2583C105.98 14.2583 105.205 16.7461 104.976 17.4858ZM115.702 20.6234H104.224C104.04 21.4555 103.396 24.3743 106.457 24.3743C107.178 24.414 107.891 24.2132 108.479 23.805C109.068 23.3968 109.497 22.8053 109.696 22.1277H115.276C113.975 26.0034 109.878 27.5077 105.731 27.5077C100.153 27.5077 97.7521 24.8036 98.8762 19.699C100.012 14.5337 103.368 11.1798 109.268 11.1798C113.732 11.1798 115.417 12.9346 116.022 15.1162C116.432 16.4408 116.299 17.9176 115.705 20.6234H115.702Z" fill="black"/>
                   </svg>
             </div>
-            <div class="p-5 text-bblack" style="justify-content: right;"><i class="fa-sharp fa-regular fa-xmark-large sm:pr-20"></i></div>
+            <div class="p-5 text-bblack" style="justify-content: right;"></div>
         </div>
     </footer>
 

@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const isRootPath = window.location.pathname === '/';
 
     // If both conditions are met, redirect to '/live.html'
-    if (isVmoodsDomain && isRootPath) {
-        window.location.href = '/live.html';
-    }
+    // if (isVmoodsDomain && isRootPath) {
+    //     window.location.href = '/live.html';
+    // }
 
     if (isLivePage) {
         navigateTo('screenvmware');
@@ -244,7 +244,7 @@ async function recordSelection(selection) {
 if(document.getElementById('home')){
     document.getElementById('home').classList.add('visible');
 }
-toggleFooterVisibility(false); // Hide footer initially
+//toggleFooterVisibility(false); // Hide footer initially
 
 let selectedHypervisor = ''; // Global variable to store the selected hypervisor
 
@@ -316,10 +316,10 @@ document.getElementById('expertForm').addEventListener('submit', function(event)
 });
 
 // Add event listener to footer to navigate to home
-document.getElementById('footer').addEventListener('click', function() {
-    navigateTo('home');
-    updateChartsAndRecreate('home', ''); // Fetch and update charts when navigating to home
-});
+// document.getElementById('footer').addEventListener('click', function() {
+//     navigateTo('home');
+//     updateChartsAndRecreate('home', ''); // Fetch and update charts when navigating to home
+// });
 
 async function initializeChartForScreen(screenId) {
     const data = await fetchResults();
