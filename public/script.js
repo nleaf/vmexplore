@@ -311,7 +311,8 @@ document.getElementById('expertForm').addEventListener('submit', function(event)
     // if (isLivePage) {
     //     navigateTo('screenvmware');
     // }else{
-        navigateTo('home'); // Navigate back to home after submission
+        //navigateTo('home'); // Navigate back to home after submission
+        window.location.href = "https://expedient.com/";
     //}
 });
 
