@@ -18,6 +18,9 @@ app.use((req, res, next) => {
     if (req.hostname === 'www.vmoods.com' && req.headers['x-forwarded-proto'] !== 'https') {
         return res.redirect(`https://${req.get('Host')}${req.url}`);
     }
+    if (req.hostname === 'vmoods.com' && req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect(`https://${req.get('Host')}${req.url}`);
+    }
     next();
 });
 
@@ -28,9 +31,9 @@ app.use('/api', (req, res, next) => {
 
 // Redirect root of www.vmoods.com to /live.html
 app.get('/', (req, res) => {
-    if (req.hostname === 'www.vmoods.com') {
-        return res.redirect('/live.html');
-    }
+    // if (req.hostname === 'www.vmoods.com') {
+    //     return res.redirect('/live.html');
+    // }
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
